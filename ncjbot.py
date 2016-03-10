@@ -1,8 +1,6 @@
 ## ncjbot.py
 ## Basic IRC chat bot
 ## author: nicholascjones
-## takes some ideas from Peter Bui's Bobbit https://bitbucket.org/pbui/bobbit
-## also borrows some from http://archive.oreilly.com/pub/h/1968
 
 
 import sys
@@ -14,6 +12,7 @@ import time
 import json
 import random
 import requests
+import re
 
 from slackclient import SlackClient
 
@@ -25,23 +24,29 @@ NICK = "notnickjones"
 PORT = 6667
 TOKEN = 'xoxb-25750572867-S8sB4KyTypsBhWV6x77QRHVF'
 readbuffer=""
-CHAN = "#lug"
+CHAN = "ncj"
 
 sc = SlackClient(TOKEN)
 if sc.rtm_connect():
-	while True:
-		print sc.rtm_read()
-		time.sleep(1)
-		break
+	#	time.sleep(1)
+	print "Got it"
 else:
 	print "Connection Failed, invalid token?"
 
 print sc.api_call("api.test")
-hey = "Um...why am I here again?"
+hey = "I see they rebooted the student machine!"
 print sc.api_call("chat.postMessage", token=TOKEN, username=NICK, as_user='true', channel=CHAN, text=hey)
 #print sc.api_call('chat.postMessage', token=TOKEN,  username=NICK, icon_emoji=':ghost:', as_user='true', channel='CHAN', text='Hello World!')
 
-
+while True:
+	x = sc.rtm_read()
+	for ev in x:
+		print(ev)
+		if "type" in ev:
+			if ev["type"] == "message" and "text" in ev:
+				message=ev["text"]
+				if re.search(message, 'notnickjones'):
+					print sc.api_call("chat.postMessage", token=TOKEN, username=NICK, as_user='true', channel=CHAN, text='What do you want?')
 
 
 
