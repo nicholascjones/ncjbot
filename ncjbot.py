@@ -23,16 +23,23 @@ OWNER = "nicholascjones"
 #HOST = 'slack.com'
 NICK = "notnickjones"
 PORT = 6667
-TOKEN = "xoxb-25750572867-S8sB4KyTypsBhWV6x77QRHVF"
+TOKEN = 'xoxb-25750572867-S8sB4KyTypsBhWV6x77QRHVF'
 readbuffer=""
+CHAN = "#lug"
 
 sc = SlackClient(TOKEN)
 if sc.rtm_connect():
 	while True:
 		print sc.rtm_read()
 		time.sleep(1)
+		break
 else:
 	print "Connection Failed, invalid token?"
+
+print sc.api_call("api.test")
+hey = "Um...why am I here again?"
+print sc.api_call("chat.postMessage", token=TOKEN, username=NICK, as_user='true', channel=CHAN, text=hey)
+#print sc.api_call('chat.postMessage', token=TOKEN,  username=NICK, icon_emoji=':ghost:', as_user='true', channel='CHAN', text='Hello World!')
 
 
 
