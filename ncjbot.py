@@ -23,7 +23,7 @@ OWNER = "nicholascjones"
 #HOST = 'slack.com'
 NICK = "notnickjones"
 PORT = 6667
-TOKEN = 'xoxb-25750572867-S8sB4KyTypsBhWV6x77QRHVF'
+TOKEN = ''
 readbuffer=""
 CHAN = "#lug"
 
