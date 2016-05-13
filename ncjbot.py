@@ -45,7 +45,7 @@ while True:
 		if "type" in ev:
 			if ev["type"] == "message" and "text" in ev:
 				message=ev["text"]
-				if re.search(message, 'yes'):
+				if re.search('(.*)notnickjones(.*)',message) or re.search('(.*)@U0RN2GURH(.*)',message): #second part seeks to serve as his @ name
 					print sc.api_call("chat.postMessage", token=TOKEN, username=NICK, as_user='true', channel=CHAN, text='What do you want?')
 
 
